@@ -1,4 +1,5 @@
 import Header from './Components/Header';
+import { PopularPosts } from './Components/PopularPosts';
 import theme, { ThemeProvider, CssBaseline } from './Components/Theme';
 
 const App = () => {
@@ -7,7 +8,8 @@ const App = () => {
     <ThemeProvider theme={theme}>
 
       <CssBaseline />
-      <Header />
+      <Header /> 
+      <PopularPosts />
 
     </ThemeProvider>
   )

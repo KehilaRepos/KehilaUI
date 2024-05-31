@@ -12,6 +12,7 @@ import Container from '@mui/material/Container';
 import logoImage from '../assets/images/logo.png';
 import NotificationsNoneIcon from '@mui/icons-material/NotificationsNone';
 import Login from './Login';
+import { Button, MenuItem } from '@mui/material';
 
 /** TODO: Maybe seperate the header component to 3 smaller components:
  * 
@@ -28,6 +29,7 @@ interface Props {
 
 function Header () {
 
+  const pages = [ 'Home', 'Explore', 'Create Post', 'About us' ];
   const [anchorElNav, setAnchorElNav] = useState<null | HTMLElement>(null);
 
   const handleOpenNavMenu = (event: React.MouseEvent<HTMLElement>) => {
@@ -86,11 +88,11 @@ function Header () {
                 display: { xs: 'block', md: 'none' },
               }}
             >
-              {/*pages.map((page) => (
+              {pages.map((page) => (
                 <MenuItem key={page} onClick={handleCloseNavMenu}>
                   <Typography textAlign="center">{page}</Typography>
                 </MenuItem>
-              ))*/}
+              ))}
             </Menu>
           </Box>
           {/* <NoteAltOutlinedIcon sx={{ display: { xs: 'flex', md: 'none' }, mr: 1 }} /> */}
@@ -112,16 +114,19 @@ function Header () {
           >
             KEHILA
           </Typography>
-          <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
-            {/*pages.map((page) => (
+          <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' }, pl: 7 }}>
+            {pages.map((page) => (
               <Button
                 key={page}
                 onClick={handleCloseNavMenu}
-                sx={{ my: 2, color: 'white', display: 'block' }}
+                sx={{ my: 2, color: 'white', display: 'block', '&:hover': {
+                  color: '#b78fd6',
+                  cursor: 'pointer'
+                }, pl: 4 }}
               >
                 {page}
               </Button>
-            ))*/}
+            ))}
           </Box>
 
           <Box sx={{display: 'flex'}}>

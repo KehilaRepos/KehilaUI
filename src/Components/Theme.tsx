@@ -5,7 +5,7 @@ import CssBaseline from '@mui/material/CssBaseline';
 const theme = createTheme({
     palette: {
       background: {
-        default: '#999'
+        default: 'white'
       }
     },
     components: {

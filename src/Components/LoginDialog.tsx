@@ -146,8 +146,8 @@ const LoginDialog = ({setAuth, setOpenVerifyEmailDialog}: Props) => {
           </DialogContentText>
         </DialogContent>
         <DialogActions>
-          <Button type="submit" className='login'>Login</Button>
-          <Button type="submit" className='signup'>Signup</Button>
+          <Button type="submit" className='login' sx={{ color: '#222831' }} >Login</Button>
+          <Button type="submit" className='signup' sx={{ color: '#222831' }} >Signup</Button>
         </DialogActions>
       </Dialog>
     </React.Fragment>
