@@ -1,8 +1,6 @@
 import Grid from '@mui/material/Grid'
-import React from 'react'
 import PostCard from './PostCard'
 import { Swiper, SwiperSlide } from 'swiper/react';
-import { Navigation, Pagination } from 'swiper/modules';
 import 'swiper/css';
 import 'swiper/css/navigation';
 import 'swiper/css/pagination';
@@ -13,11 +11,10 @@ import { Typography } from '@mui/material';
 export const PopularPosts = () => {
 
     const posts = usePost();
-    console.log(posts);
 
   return (
 
-        <Grid container spacing={0} sx={{ pt: 5 }} justifyContent="center" alignItems="center">
+        <Grid container spacing={0} sx={{ p: 5 }} justifyContent="center" alignItems="center">
 
             <Grid item padding={7}>
                 <Typography variant='h2'>
