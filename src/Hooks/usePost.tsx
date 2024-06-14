@@ -1,6 +1,5 @@
-import { useState, useEffect, Dispatch, SetStateAction } from 'react';
+import { useState, useEffect } from 'react';
 import { postService } from '../Services/postsService';
-import { CanceledError } from '../Services/api-client';
 
 const usePost = () => {
 
