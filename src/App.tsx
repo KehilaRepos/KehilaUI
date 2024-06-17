@@ -1,5 +1,6 @@
 import BasicSearch from './Components/BasicSearch';
 import Header from './Components/Header';
+import NewsLetter from './Components/NewsLetter';
 import { PopularPosts } from './Components/PopularPosts';
 import theme, { ThemeProvider, CssBaseline } from './Components/Theme';
 
@@ -13,7 +14,7 @@ const App = () => {
       <Header /> 
       <BasicSearch />
       <PopularPosts />
-
+      <NewsLetter />
     </ThemeProvider>
 
   )

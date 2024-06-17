@@ -1,6 +1,5 @@
 import * as React from 'react';
 import { useState } from 'react'
-import LoginDialog from './LoginDialog'
 import AppBar from '@mui/material/AppBar';
 import Box from '@mui/material/Box';
 import Toolbar from '@mui/material/Toolbar';
@@ -27,7 +26,7 @@ interface Props {
   
 }
 
-function Header () {
+function Header ({}: Props) {
 
   const pages = [ 'Home', 'Explore', 'Create Post', 'About us' ];
   const [anchorElNav, setAnchorElNav] = useState<null | HTMLElement>(null);

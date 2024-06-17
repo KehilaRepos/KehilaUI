@@ -8,7 +8,6 @@ interface Props {
 const BasicSearch = ({}: Props) => {
 
     const categories = useCategories();
-    console.log(categories);
 
     return (
 
@@ -37,7 +36,6 @@ const BasicSearch = ({}: Props) => {
                                 </MenuItem>
                             ))
                         }
-                        <MenuItem value={10}>Hostels</MenuItem>
 
                     </Select>
                 </FormControl>
