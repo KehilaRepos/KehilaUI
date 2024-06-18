@@ -36,7 +36,8 @@ const LoginDialog = ({setAuth, setOpenVerifyEmailDialog}: Props) => {
       const email = formJson.email;
       const password = formJson.password;
 
-      const isTryingToLogin = event.nativeEvent.submitter.classList.contains('login');
+      const nativeEvent = event.nativeEvent as SubmitEvent;
+      const isTryingToLogin = nativeEvent?.submitter?.classList.contains('login');
 
       if(isTryingToLogin) {
 

@@ -16,7 +16,7 @@ interface Props {
 const RecipeReviewCard = ({post}: Props) => {
 
   return (
-    <Card sx={{ bgcolor: "#b78fd6", minHeight: '480px' }}>
+    <Card sx={{ bgcolor: "#b78fd6", minHeight: '500px' }}>
       <CardMedia
         component="img"
         height="250"

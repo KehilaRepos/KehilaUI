@@ -1,6 +1,5 @@
 import { useState, useEffect, Dispatch, SetStateAction } from 'react';
 import loginService from '../Services/loginService';
-import { CanceledError } from '../Services/api-client';
 
 const useLogin = () : [ boolean, Dispatch<SetStateAction<boolean>> ] => {
 

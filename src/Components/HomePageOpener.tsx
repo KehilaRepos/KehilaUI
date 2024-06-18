@@ -99,18 +99,9 @@ const HomePageOpener = () => {
         <div ref={gridRef} style={{ height: '400vh', backgroundColor: '#b78fd8' }}>
 
             <div
+                id='scrollDownText'
                 style={{
-                    position: 'absolute',
-                    top: '40%',
-                    left: '46%',
-                    transform: 'translate(-50%, -50%)',
-                    color: '#fff',
-                    fontSize: '2rem',
-                    fontWeight: 'bold',
-                    textShadow: '0px 4px 6px rgba(0,0,0,0.2)',
                     opacity: showScrollDown ? 1 : 0,
-                    transition: 'opacity 0.3s',
-                    animation: 'bounce 1.5s infinite'
                 }}
             >
                 <Typography sx={{ fontSize: '2rem' }}>Scroll Down</Typography>
