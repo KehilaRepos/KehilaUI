@@ -14,15 +14,15 @@ export const PopularPosts = () => {
 
   return (
 
-        <Grid container spacing={0} sx={{ p: 5 }} justifyContent="center" alignItems="center">
+        <Grid container spacing={0} sx={{ p: {xs: 5, sm: 10}, pt: { xs: 5, sm: 20 } }} justifyContent="center" alignItems="center">
 
-            <Grid item padding={7}>
-                <Typography variant='h2'>
+            <Grid item paddingBottom={7}>
+                <Typography variant='h2' sx={{ fontSize: { xs: '44px', sm: '54px' } }}>
                     Popular Posts
                 </Typography>
             </Grid>
 
-            <Swiper spaceBetween={30} slidesPerView={3}  modules={[]} loop
+            <Swiper spaceBetween={30} slidesPerView={2}  modules={[]} loop
                 breakpoints={{
                     // window width >= 0px
                     0: {

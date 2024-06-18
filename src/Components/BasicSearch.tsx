@@ -11,16 +11,16 @@ const BasicSearch = ({}: Props) => {
 
     return (
 
-        <Grid container spacing={0} sx={{ pt: 5, pb: 15, backgroundColor: '#b78fd8' }} justifyContent="center" color="black">
+        <Grid container spacing={2} sx={{ pt: { xs: 15, sm: 25 }, pb: 15, backgroundColor: '#ffffff' }} justifyContent="center" color="black">
 
-            <Grid item padding={7} paddingBottom={7} xs={12} sx={{ display: 'flex', justifyContent: 'center' }}>
-                <Typography variant='h2'>
+            <Grid item paddingBottom={7} xs={12} sx={{ display: 'flex', justifyContent: 'center' }}>
+                <Typography variant='h2' sx={{ fontSize: { xs: '44px', sm: '54px' } }}>
                     Quick Search
                 </Typography>
             </Grid>
 
             <Grid item xs={12} md={4} sx={{ display: 'flex', justifyContent: 'center' }}>
-                <FormControl fullWidth>
+                <FormControl sx={{width: '90%'}}>
                     <InputLabel id="category-select-label">Category</InputLabel>
                     <Select
                         labelId="category-select-label"

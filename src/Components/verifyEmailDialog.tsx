@@ -29,7 +29,8 @@ const VerifyEmailDialog = ({openVerifyEmailDialog, setOpenVerifyEmailDialog, set
     const email = formJson.email;
     const code = formJson.code;
 
-    const isTryingToVerify = event.nativeEvent.submitter.classList.contains('verify');
+    const nativeEvent = event.nativeEvent as SubmitEvent;
+    const isTryingToVerify = nativeEvent?.submitter?.classList.contains('verify');
 
     if( isTryingToVerify ) {
 
