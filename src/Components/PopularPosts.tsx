@@ -22,7 +22,7 @@ export const PopularPosts = () => {
                 </Typography>
             </Grid>
 
-            <Swiper spaceBetween={30} slidesPerView={3}  modules={[]} loop
+            <Swiper spaceBetween={30} slidesPerView={2}  modules={[]} loop
                 breakpoints={{
                     // window width >= 0px
                     0: {

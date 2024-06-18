@@ -45,10 +45,13 @@ const NewsLetter = ({}: Props) => {
     
     return (
 
-        <Grid container spacing={3} flexDirection={"column"} sx={{ pt: 5, pb: 15, backgroundColor: '#ffffff' }} justifyContent="center" alignItems="center" color="black">
+        <Grid container spacing={3} flexDirection={"column"} sx={{ pt: 25, pb: 25, backgroundColor: '#ffffff' }} justifyContent="center" alignItems="center" color="black">
 
             <Grid item padding={7} paddingBottom={7} xs={12} sx={{ display: 'flex', justifyContent: 'center' }}>
-                <Typography variant='h2'>
+                <Typography variant='h2' sx={{
+                    fontWeight: '300', // Lighter font-weight
+                    letterSpacing: 1, // Spacing between letters
+                }}>
                     Newsletter
                 </Typography>
             </Grid>

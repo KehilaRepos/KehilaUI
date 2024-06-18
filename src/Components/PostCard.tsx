@@ -16,11 +16,11 @@ interface Props {
 const RecipeReviewCard = ({post}: Props) => {
 
   return (
-    <Card sx={{ bgcolor: "#b78fd6" }}>
+    <Card sx={{ bgcolor: "#b78fd6", minHeight: '480px' }}>
       <CardMedia
         component="img"
-        height="194"
-        image={"https://kehilaimagebucket.s3.amazonaws.com/" + post.pid + ".jpg"}
+        height="250"
+        image={"https://kehilaimagebucket.s3.amazonaws.com/" + post.pid}
         alt=""
       />
       <CardHeader
