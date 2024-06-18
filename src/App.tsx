@@ -1,4 +1,5 @@
 import BasicSearch from './Components/BasicSearch';
+import Footer from './Components/Footer';
 import Header from './Components/Header';
 import HomePageOpener from './Components/HomePageOpener';
 import NewsLetter from './Components/NewsLetter';
@@ -17,6 +18,7 @@ const App = () => {
       <BasicSearch />
       <PopularPosts />
       <NewsLetter />
+      <Footer />
     </ThemeProvider>
 
   )

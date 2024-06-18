@@ -17,6 +17,12 @@ const RecipeReviewCard = ({post}: Props) => {
 
   return (
     <Card sx={{ bgcolor: "#b78fd6" }}>
+      <CardMedia
+        component="img"
+        height="194"
+        image={"https://kehilaimagebucket.s3.amazonaws.com/" + post.pid + ".jpg"}
+        alt=""
+      />
       <CardHeader
         action={
           <IconButton aria-label="settings">
