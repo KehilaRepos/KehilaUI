@@ -11,9 +11,15 @@ import MoreVertIcon from '@mui/icons-material/MoreVert';
 
 interface Props {
     post: any
+    type?: string
 };
 
-const RecipeReviewCard = ({post}: Props) => {
+const RecipeReviewCard = ({post, type = "posts"}: Props) => {
+
+  const postDate = type === "livefeed" ? post.expiration_time : post.creation_time;
+  const displayDate = new Date(postDate);
+  const dateWithoutTime = displayDate.getUTCFullYear() + '-' + (displayDate.getUTCMonth() + 1).toString().padStart(2, '0') + '-' + displayDate.getUTCDate().toString().padStart(2, '0');
+  const timeWithoutDate = displayDate.getUTCHours().toString().padStart(2, '0') + ':' + displayDate.getUTCMinutes().toString().padStart(2, '0') + ':' + displayDate.getUTCSeconds().toString().padStart(2, '0');
 
   return (
     <Card sx={{ bgcolor: "#b78fd6", minHeight: '500px' }}>
@@ -30,7 +36,7 @@ const RecipeReviewCard = ({post}: Props) => {
           </IconButton>
         }
         title={post.title}
-        subheader="September 14, 2016"
+        subheader={ type === "livefeed" ? "Expired at " + dateWithoutTime + ", " + timeWithoutDate : "Created at " + dateWithoutTime + ", " + timeWithoutDate }
       />
       <CardContent>
         <Typography variant="body2" color="text.secondary">

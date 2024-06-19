@@ -6,7 +6,7 @@ import 'swiper/css/navigation';
 import 'swiper/css/pagination';
 import 'swiper/css/scrollbar';
 import usePost from '../Hooks/usePost';
-import { Typography } from '@mui/material';
+import { Container, Typography } from '@mui/material';
 
 export const PopularPosts = () => {
 
@@ -14,9 +14,11 @@ export const PopularPosts = () => {
 
   return (
 
+      <Container maxWidth={"xl"}>
+
         <Grid container spacing={0} sx={{ p: {xs: 5, sm: 10}, pt: { xs: 5, sm: 20 } }} justifyContent="center" alignItems="center">
 
-            <Grid item paddingBottom={7}>
+            <Grid item xs={12} sx={{ paddingBottom: 7, display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
                 <Typography variant='h2' sx={{ fontSize: { xs: '44px', sm: '54px' } }}>
                     Popular Posts
                 </Typography>
@@ -54,6 +56,9 @@ export const PopularPosts = () => {
 
             </Swiper>
         </Grid>
+
+      </Container>
+
 
   )
 }
