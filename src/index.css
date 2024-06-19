@@ -24,9 +24,37 @@
 }
 
 @media (max-width: 600px) {
+    
     #scrollDownText {
         font-size: 1.5rem;
         top: 50%;
         left:30%;
     }
+    
+    #homepage-opener-description {
+        max-width: 90% !important;
+    }
+    
+    #homepage-opener-title {
+        font-size: 2.5rem !important;
+    }
+    
 }
+
+#homepage-opener-description {
+    max-width: 50%;
+    text-align: justify;
+    font-size: 1.2rem;
+    line-height: 1.6;
+    color: #ffffff;
+    text-shadow: 0px 2px 4px rgba(0,0,0,0.1);
+    margin: 20px 0;
+}
+
+#homepage-opener-title {
+    font-size: 3rem;
+    font-weight: bold;
+    color: #fff;
+    text-shadow: 0px 4px 6px rgba(0,0,0,0.2);
+}
+

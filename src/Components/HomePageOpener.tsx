@@ -109,9 +109,9 @@ const HomePageOpener = () => {
             </div>
 
             <div ref={textSideRef} style={{ height: '100vh', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', textAlign: 'center' }}>
-                <h1 ref={titleRef} style={{ fontSize: '3rem', fontWeight: 'bold', color: '#fff', textShadow: '0px 4px 6px rgba(0,0,0,0.2)' }}>Welcome to Kehila</h1>
+                <h1 ref={titleRef} id='homepage-opener-title'>Welcome to Kehila</h1>
 
-                <p ref={descriptionRef} style={{ maxWidth: '50%', textAlign: 'justify', fontSize: '1.2rem', lineHeight: '1.6', color: '#ffffff', textShadow: '0px 2px 4px rgba(0,0,0,0.1)', margin: '20px 0' }}>
+                <p ref={descriptionRef} id='homepage-opener-description'>
                 KEHILA - A web platform designed to create a new centralized hub for all charitable activities.
                 Built on AWS, KEHILA will allow its users to engage with one another using our service, offering a solution for a wide variety of charity related operations.
                 Users can post and discover different charity related offers or requests within their communities locally, or based on the relevant type of charity.
