@@ -53,7 +53,7 @@ const LoginDialog = ({setAuth, setOpenVerifyEmailDialog}: Props) => {
             localStorage.setItem('userEmail', email);
           }
           else {
-            if(res.data.message === 'Please verify your email address to proceed with login.') {
+            if(res.data.message === 'User is not confirmed.') {
               handleClose();
               localStorage.setItem('accessToken', res.data);
               setOpenVerifyEmailDialog(true);
