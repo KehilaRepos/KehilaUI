@@ -1,11 +1,41 @@
 import apiClient from "./api-client";
 
+export interface Post {
+    cid: number;
+    title: string;
+    description: string;
+    location: {
+        lat: number;
+        lng: number;
+    };
+    expiration_time: string;
+    target: number;
+    contact_email: string;
+    contact_phone: string | null;
+    facebook: string | null;
+    instagram: string | null;
+    twitter: string | null;
+    website: string | null;
+    contact_name: string | null;
+    has_image: boolean;
+    user_email: string | null;
+}
+
 class postsService {
 
     getPosts() {
 
         const controller = new AbortController();
         const request = apiClient.get(`/post`, { signal: controller.signal });
+
+        return { request, cancel: () => controller.abort() }
+
+    }
+
+    createPost( post: Post ) {
+
+        const controller = new AbortController();
+        const request = apiClient.post(`/post`, post, { signal: controller.signal });
 
         return { request, cancel: () => controller.abort() }
 
