@@ -1,5 +1,27 @@
 import apiClient from "./api-client";
 
+export interface Post {
+    cid: number;
+    title: string;
+    description: string;
+    location: {
+        lat: number;
+        lng: number;
+    };
+    expiration_time: string;
+    target: number;
+    contact_email: string;
+    contact_phone: string | null;
+    facebook: string | null;
+    instagram: string | null;
+    twitter: string | null;
+    website: string | null;
+    contact_name: string | null;
+    has_image: boolean;
+    user_email: string | null;
+    file: File | null;
+}
+
 class postsService {
 
     getPosts() {
@@ -11,6 +33,18 @@ class postsService {
 
     }
 
+    createPost(postData: FormData) {
+        const controller = new AbortController();
+        const request = apiClient.post(`/post`, postData, {
+            headers: {
+                'Content-Type': 'multipart/form-data', // This is usually not needed as browsers set it correctly with the correct boundary
+            },
+            signal: controller.signal
+        });
+    
+        return { request, cancel: () => controller.abort() };
+    }
+    
     getPostsByLocation( lat: number, lng: number, radius: number, day: number = 100 ) {
 
         const controller = new AbortController();

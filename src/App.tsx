@@ -1,29 +1,25 @@
-import BasicSearch from './Components/BasicSearch';
+import CreatePost from './Components/CreatePost';
 import Footer from './Components/Footer';
 import Header from './Components/Header';
-import HomePageOpener from './Components/HomePageOpener';
-import { LiveFeed } from './Components/LiveFeed';
-import NewsLetter from './Components/NewsLetter';
-import { PopularPosts } from './Components/PopularPosts';
+import Homepage from './Components/Homepage';
 import theme, { ThemeProvider, CssBaseline } from './Components/Theme';
+import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
+// Rest of the imports remain the same
 
 const App = () => {
-
   return (
-    
-    <ThemeProvider theme={theme}>
-
-      <CssBaseline />
-      <Header /> 
-      <HomePageOpener />
-      <BasicSearch />
-      <LiveFeed />
-      <PopularPosts />
-      <NewsLetter />
-      <Footer />
-    </ThemeProvider>
-
-  )
+    <Router>
+      <ThemeProvider theme={theme}>
+        <CssBaseline />
+        <Header />
+        <Routes>
+          <Route path="/" element={ <Homepage /> } />
+          <Route path="/create-post" element={ <CreatePost /> } />
+        </Routes>
+        <Footer />
+      </ThemeProvider>
+    </Router>
+  );
 }
 
 export default App

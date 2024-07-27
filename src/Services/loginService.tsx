@@ -19,6 +19,13 @@ class LoginService {
 
     }
 
+    getLoggedInUserEmail(): string | null {
+        if (this.checkLoggedIn()) {
+            return localStorage.getItem('userEmail');
+        }
+        return null;
+    }
+
     Login( loginEmail: string, loginPassword: string ) {
 
         const userLogin = {

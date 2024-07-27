@@ -9,8 +9,6 @@ export const LiveFeed = () => {
     const position: L.LatLngExpression = [ 32.070538, 34.779969 ];
     const postsByLocation = usePostByLocation( position[0], position[1], 300, 500 );
 
-    console.log(postsByLocation);
-
   return (
     <Container maxWidth={'xl'}>
       <Grid container spacing={2} sx={{ p: { xs: 5, sm: 10 }, pt: { xs: 5, sm: 20 } }} justifyContent="center" alignItems="center">
@@ -45,6 +43,10 @@ export const LiveFeed = () => {
 
             {
                 postsByLocation.map((post) => {
+
+                  if( post.location === null ) {
+                    return;
+                  }
 
                     const location: L.LatLngExpression = [ post.location.x, post.location.y ];
 

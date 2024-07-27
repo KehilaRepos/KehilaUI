@@ -6,6 +6,7 @@ import 'swiper/css/navigation';
 import 'swiper/css/pagination';
 import 'swiper/css/scrollbar';
 import usePost from '../Hooks/usePost';
+import { Pagination } from 'swiper/modules';
 import { Container, Typography } from '@mui/material';
 
 export const PopularPosts = () => {
@@ -24,7 +25,7 @@ export const PopularPosts = () => {
                 </Typography>
             </Grid>
 
-            <Swiper spaceBetween={30} slidesPerView={2}  modules={[]} loop
+            <Swiper spaceBetween={30} slidesPerView={2}  modules={[Pagination]} loop pagination={{clickable: true}}
                 breakpoints={{
                     // window width >= 0px
                     0: {

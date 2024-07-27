@@ -12,6 +12,7 @@ import logoImage from '../assets/images/logo.png';
 import NotificationsNoneIcon from '@mui/icons-material/NotificationsNone';
 import Login from './Login';
 import { Button, MenuItem } from '@mui/material';
+import { Link } from 'react-router-dom';
 
 /** TODO: Maybe seperate the header component to 3 smaller components:
  * 
@@ -28,7 +29,13 @@ interface Props {
 
 function Header ({}: Props) {
 
-  const pages = [ 'Home', 'Explore', 'Create Post', 'About us' ];
+  const pages = {
+    'Home': '/',
+    'Explore': '/explore',
+    'Create Post': '/create-post',
+    'About Us': '/about-us'
+  };
+
   const [anchorElNav, setAnchorElNav] = useState<null | HTMLElement>(null);
 
   const handleOpenNavMenu = (event: React.MouseEvent<HTMLElement>) => {
@@ -87,11 +94,15 @@ function Header ({}: Props) {
                 display: { xs: 'block', md: 'none' },
               }}
             >
-              {pages.map((page) => (
-                <MenuItem key={page} onClick={handleCloseNavMenu}>
-                  <Typography textAlign="center">{page}</Typography>
-                </MenuItem>
-              ))}
+              {
+                Object.entries(pages).map(([page, slug]) => (
+                  <MenuItem key={page} onClick={handleCloseNavMenu}>
+                    <Link to={slug} style={{ textDecoration: 'none', color: 'inherit' }}>
+                      <Typography textAlign="center">{page}</Typography>
+                    </Link>
+                  </MenuItem>
+                ))
+              }
             </Menu>
           </Box>
           {/* <NoteAltOutlinedIcon sx={{ display: { xs: 'flex', md: 'none' }, mr: 1 }} /> */}
@@ -114,18 +125,28 @@ function Header ({}: Props) {
             KEHILA
           </Typography>
           <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' }, pl: 7 }}>
-            {pages.map((page) => (
+          {
+            Object.entries(pages).map(([page, slug]) => (
               <Button
                 key={page}
                 onClick={handleCloseNavMenu}
-                sx={{ my: 2, color: 'white', display: 'block', '&:hover': {
-                  color: '#b78fd6',
-                  cursor: 'pointer'
-                }, pl: 4 }}
+                sx={{
+                  my: 2, 
+                  color: 'white', 
+                  display: 'block', 
+                  '&:hover': {
+                    color: '#b78fd6',
+                    cursor: 'pointer'
+                  },
+                  pl: 4
+                }}
               >
-                {page}
+                <Link to={slug} style={{ textDecoration: 'none', color: 'inherit' }}>
+                  {page}
+                </Link>
               </Button>
-            ))}
+            ))
+          }
           </Box>
 
           <Box sx={{display: 'flex'}}>
