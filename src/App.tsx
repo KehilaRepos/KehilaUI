@@ -2,6 +2,7 @@ import CreatePost from './Components/CreatePost';
 import Footer from './Components/Footer';
 import Header from './Components/Header';
 import Homepage from './Components/Homepage';
+import PostPage from './Components/PostPage';
 import theme, { ThemeProvider, CssBaseline } from './Components/Theme';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 // Rest of the imports remain the same
@@ -15,6 +16,7 @@ const App = () => {
         <Routes>
           <Route path="/" element={ <Homepage /> } />
           <Route path="/create-post" element={ <CreatePost /> } />
+          <Route path="/post/:postId" element={<PostPage />} />
         </Routes>
         <Footer />
       </ThemeProvider>

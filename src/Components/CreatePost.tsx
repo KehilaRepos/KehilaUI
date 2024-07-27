@@ -4,7 +4,7 @@ import { Autocomplete } from '@mui/material';
 import useCategories from '../Hooks/useCategories';
 import autoCompleteService from '../Services/autoCompleteService';
 import loginService from '../Services/loginService';
-import { Post, postService } from '../Services/postsService';
+import { postService } from '../Services/postsService';
 
 const CreatePost: React.FC = () => {
 
@@ -92,7 +92,7 @@ const CreatePost: React.FC = () => {
       formData.append('twitter', twitterRef.current?.value || '');
       formData.append('website', websiteRef.current?.value || '');
       formData.append('contact_name', contactNameRef.current?.value || '');
-      formData.append('user_email', 'asdasd@adga.com');
+      formData.append( 'user_email', loginService.getLoggedInUserEmail() );
       if (file) {
           formData.append('file', file);
       }
