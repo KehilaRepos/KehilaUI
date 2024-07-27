@@ -19,6 +19,7 @@ export interface Post {
     contact_name: string | null;
     has_image: boolean;
     user_email: string | null;
+    file: File | null;
 }
 
 class postsService {
@@ -32,15 +33,18 @@ class postsService {
 
     }
 
-    createPost( post: Post ) {
-
+    createPost(postData: FormData) {
         const controller = new AbortController();
-        const request = apiClient.post(`/post`, post, { signal: controller.signal });
-
-        return { request, cancel: () => controller.abort() }
-
+        const request = apiClient.post(`/post`, postData, {
+            headers: {
+                'Content-Type': 'multipart/form-data', // This is usually not needed as browsers set it correctly with the correct boundary
+            },
+            signal: controller.signal
+        });
+    
+        return { request, cancel: () => controller.abort() };
     }
-
+    
     getPostsByLocation( lat: number, lng: number, radius: number, day: number = 100 ) {
 
         const controller = new AbortController();

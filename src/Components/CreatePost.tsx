@@ -17,6 +17,7 @@ const CreatePost: React.FC = () => {
     const [address, setAddress] = useState('');
     const [coordinates, setCoordinates] = useState<{ lat: number, lng: number }>({ lat: 0, lng: 0 });
     const [options, setOptions] = useState<any[]>([]);
+    const [file, setFile] = useState<File | null>(null);
 
     const [inputValue, setInputValue] = useState('');
 
@@ -41,13 +42,21 @@ const CreatePost: React.FC = () => {
 
     const handleInputChange = (event: React.SyntheticEvent<Element, Event>, value: string) => {
         setInputValue(value);
+        console.log(value);
     };
 
     const handleOptionSelected = (event: React.SyntheticEvent<Element, Event>, value: any | null) => {
         if (value) {
-            setAddress(value.display_name);
+            setAddress(value.display_name || '');
             setCoordinates({ lat: value.lat, lng: value.lon });
         }
+        else {
+            setAddress('');
+        }
+    };
+
+    const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+        setFile(event.target.files ? event.target.files[0] : null);
     };
 
     // Initialize refs for form inputs
@@ -68,25 +77,27 @@ const CreatePost: React.FC = () => {
 
       event.preventDefault();
 
-      const postData: Post = {
-        cid: categoryId,
-        title: titleRef.current?.value || '',
-        description: descriptionRef.current?.value || '',
-        location: coordinates,
-        expiration_time: expirationTimeRef.current?.value || '',
-        target: Number(targetRef.current?.value),
-        contact_email: contactEmailRef.current?.value || '',
-        contact_phone: contactPhoneRef.current?.value || null,
-        facebook: facebookRef.current?.value || null,
-        instagram: instagramRef.current?.value || null,
-        twitter: twitterRef.current?.value || null,
-        website: websiteRef.current?.value || null,
-        contact_name: contactNameRef.current?.value || null,
-        has_image: false,
-        user_email: loginService.getLoggedInUserEmail(),
-      };
+      const formData = new FormData();
+      formData.append('cid', String(categoryId));
+      formData.append('title', titleRef.current?.value || '');
+      formData.append('description', descriptionRef.current?.value || '');
+      formData.append('lat', coordinates.lat.toString());
+      formData.append('lng', coordinates.lat.toString());
+      formData.append('expiration_time', expirationTimeRef.current?.value || '');
+      formData.append('target', targetRef.current?.value || '0');
+      formData.append('contact_email', contactEmailRef.current?.value || '');
+      formData.append('contact_phone', contactPhoneRef.current?.value || '');
+      formData.append('facebook', facebookRef.current?.value || '');
+      formData.append('instagram', instagramRef.current?.value || '');
+      formData.append('twitter', twitterRef.current?.value || '');
+      formData.append('website', websiteRef.current?.value || '');
+      formData.append('contact_name', contactNameRef.current?.value || '');
+      formData.append('user_email', 'asdasd@adga.com');
+      if (file) {
+          formData.append('file', file);
+      }
 
-      const { request } = postService.createPost( postData );
+      const { request } = postService.createPost( formData );
 
       request
         .then(res => {
@@ -186,6 +197,14 @@ const CreatePost: React.FC = () => {
                 </Grid>
                 <Grid item xs={12} sm={6}>
                     <TextField fullWidth label="Website" inputRef={websiteRef} />
+                </Grid>
+                <Grid item xs={12}>
+                    <TextField
+                        type="file"
+                        onChange={handleFileChange}
+                        fullWidth
+                        inputProps={{ accept: 'image/*' }}
+                    />
                 </Grid>
                 <Grid item xs={12} sx={{pb: 7}}>
                     <Button type="submit" variant="contained" color="primary" fullWidth>Submit</Button>

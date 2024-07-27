@@ -44,6 +44,10 @@ export const LiveFeed = () => {
             {
                 postsByLocation.map((post) => {
 
+                  if( post.location === null ) {
+                    return;
+                  }
+
                     const location: L.LatLngExpression = [ post.location.x, post.location.y ];
 
                     return (

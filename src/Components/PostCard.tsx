@@ -21,6 +21,8 @@ const RecipeReviewCard = ({post, type = "posts"}: Props) => {
   const dateWithoutTime = displayDate.getUTCFullYear() + '-' + (displayDate.getUTCMonth() + 1).toString().padStart(2, '0') + '-' + displayDate.getUTCDate().toString().padStart(2, '0');
   const timeWithoutDate = displayDate.getUTCHours().toString().padStart(2, '0') + ':' + displayDate.getUTCMinutes().toString().padStart(2, '0') + ':' + displayDate.getUTCSeconds().toString().padStart(2, '0');
 
+  console.log(post);
+
   return (
     <Card sx={{ bgcolor: "#b78fd6", minHeight: '500px' }}>
       <CardMedia
