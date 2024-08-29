@@ -18,7 +18,7 @@ export interface Post {
     website: string | null;
     contact_name: string | null;
     has_image: boolean;
-    user_email: string | null;
+    user_email: string;
     file: File | null;
 }
 
@@ -28,6 +28,15 @@ class postsService {
 
         const controller = new AbortController();
         const request = apiClient.get(`/post`, { signal: controller.signal });
+
+        return { request, cancel: () => controller.abort() }
+
+    }
+
+    getSinglePost( postId: number ) {
+
+        const controller = new AbortController();
+        const request = apiClient.get(`/post?pid=${postId}`, { signal: controller.signal });
 
         return { request, cancel: () => controller.abort() }
 

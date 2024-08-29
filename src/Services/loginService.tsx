@@ -19,11 +19,12 @@ class LoginService {
 
     }
 
-    getLoggedInUserEmail(): string | null {
+    getLoggedInUserEmail(): string {
         if (this.checkLoggedIn()) {
-            return localStorage.getItem('userEmail');
+            const email = localStorage.getItem('userEmail') ?? '';
+            return email;
         }
-        return null;
+        return '';
     }
 
     Login( loginEmail: string, loginPassword: string ) {
