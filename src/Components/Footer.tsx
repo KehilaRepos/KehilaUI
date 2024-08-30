@@ -3,7 +3,7 @@ import logoImage from '../assets/images/logo.png';
 
 const Footer = () => {
     return (
-        <Box component="footer" sx={{ backgroundColor: '#222831', mt: 4, py: 3 }}>
+        <Box component="footer" sx={{ backgroundColor: '#222831', py: 3 }}>
             <Container maxWidth="lg">
                 <Grid container spacing={3} justifyContent="center" alignItems="center">
                     <Grid item xs={12} sm={6} sx={{ textAlign: 'center' }}>

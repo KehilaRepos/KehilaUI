@@ -16,7 +16,7 @@ const PostPage = () => {
                 {!post ? (
                     <Skeleton variant="rectangular" width="100%" height={300} />
                 ) : (
-                    <img src={post?.has_image ? `https://kehilaimagebucket.s3.amazonaws.com/${post.pid}` : ''} alt={post ? post.title : "Placeholder"} style={{ width: '100%', height: '700px' }} />
+                    <img src={post?.has_image ? `https://kehilabucket.s3.amazonaws.com/${post.pid}` : ''} alt={post ? post.title : "Placeholder"} style={{ width: '100%', height: '700px' }} />
                 )}
                 <Typography variant="h3" sx={{ position: 'relative', bottom: 63, color: 'white', backgroundColor: 'rgba(0, 0, 0, 0.3)', display: 'flex', justifyContent: 'center', alignItems: 'center', fontWeight: 300 }}>
                     {!post ? <Skeleton width="40%" /> : post.title}
@@ -24,7 +24,7 @@ const PostPage = () => {
             </Box>
 
             {/* Content Container */}
-            <Container maxWidth="xl">
+            <Container maxWidth="xl" sx={{marginBottom: '100px'}}>
                 <Grid container spacing={2} sx={{ marginTop: 2, display: 'flex' }}>
                     {/* Left Column: Description, Social Media, Contact Info */}
                     <Grid item xs={12} md={6} container spacing={2}>
