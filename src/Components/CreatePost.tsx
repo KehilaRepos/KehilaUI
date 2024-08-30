@@ -155,21 +155,21 @@ const CreatePost: React.FC = () => {
                     <TextField fullWidth label="Description" multiline rows={4} inputRef={descriptionRef} required  />
                 </Grid>
                 <Grid item xs={6}>
-                <Autocomplete
-                            freeSolo
-                            value={address}
-                            inputValue={inputValue}
-                            onInputChange={handleInputChange}
-                            onChange={handleOptionSelected}
-                            options={options.map(option => ({
-                                label: option.display_name,
-                                lat: option.lat,
-                                lon: option.lon
-                            }))}
-                            renderInput={(params) => (
-                                <TextField {...params} label="Address" fullWidth />
-                            )}
-                        />
+                    <Autocomplete
+                        freeSolo
+                        value={address}
+                        inputValue={inputValue}
+                        onInputChange={handleInputChange}
+                        onChange={handleOptionSelected}
+                        options={options.map(option => ({
+                            label: option.display_name,
+                            lat: option.lat,
+                            lon: option.lon
+                        }))}
+                        renderInput={(params) => (
+                            <TextField {...params} label="Address" fullWidth />
+                        )}
+                    />
                 </Grid>
                 <Grid item xs={6}>
                     <TextField fullWidth label="Expiration Time" type="datetime-local" InputLabelProps={{ shrink: true }} inputRef={expirationTimeRef} />

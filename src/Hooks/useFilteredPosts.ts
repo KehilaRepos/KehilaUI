@@ -25,13 +25,13 @@ interface Post {
   distance: number;
 }
 
-const usePost = () => {
+const useFilteredPosts = (filters: string) => {
 
   const [ posts, setPosts ] = useState<Post[]>([]);
 
   useEffect(() => {
 
-    const { request , cancel } = postService.getPosts();
+    const { request , cancel } = postService.getFilteredPosts( filters );
 
     request
     .then(res => {
@@ -41,14 +41,16 @@ const usePost = () => {
       console.log(err);
     });
 
+    console.log("rerendered", filters);
+
     return () => { cancel(); };
   
-  }, []);
+  }, [ filters ]);
 
   return posts;
 
 };
 
-export default usePost;
+export default useFilteredPosts;
 
 
