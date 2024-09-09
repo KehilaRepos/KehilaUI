@@ -5,16 +5,48 @@ import SplitType from 'split-type';
 import anime from 'animejs';
 import KeyboardDoubleArrowDownIcon from '@mui/icons-material/KeyboardDoubleArrowDown';
 import { Typography } from '@mui/material';
+import { Canvas, useFrame } from '@react-three/fiber';
+import * as THREE from 'three';
+import { OrbitControls, PerspectiveCamera, useGLTF } from '@react-three/drei';
+
+interface ModelProps {
+    modelRef: React.RefObject<THREE.Object3D>;
+    visible: boolean;
+  }
+
+function Model({ modelRef, visible }: ModelProps) {
+    const { scene } = useGLTF('kehilamodel.glb');
+    useFrame(() => {
+      
+    });
+    useEffect(() => {
+        if (modelRef.current) {
+            modelRef.current.visible = visible; 
+        }
+    }, [visible]);
+  
+    return (
+      <primitive
+        object={scene}
+        rotation={[1.586, 0, 3.2]}
+        position={[0, -0.5, 0]}
+        scale={30}
+        ref={modelRef}
+      />
+    );
+  }
 
 const HomePageOpener = () => {
 
     const [showScrollDown, setShowScrollDown] = useState(true);
+    const [showModel, setShowModel] = useState(false);
 
     const gridRef = useRef<HTMLDivElement>(null);
     const textSideRef = useRef<HTMLDivElement>(null);
     const titleRef = useRef<HTMLHeadingElement>(null);
     const descriptionRef = useRef<HTMLParagraphElement>(null);
     const heartRef = useRef<SVGSVGElement>(null);
+    const modelRef = useRef<THREE.Object3D | null>(null);
 
     useEffect(() => {
         gsap.registerPlugin(ScrollTrigger);
@@ -29,8 +61,14 @@ const HomePageOpener = () => {
                     start: "top top",
                     end: "bottom bottom",
                     scrub: true,
-                    onEnter: () => setShowScrollDown(false),
-                    onLeaveBack: () => setShowScrollDown(true),
+                    onEnter: () => {
+                        setShowScrollDown(false);
+                        setShowModel(true);
+                    },
+                    onLeaveBack: () => {
+                        setShowScrollDown(true);
+                        setShowModel(false);
+                    },
                 }
             });
 
@@ -90,10 +128,26 @@ const HomePageOpener = () => {
                 }
             });
 
+            tl.fromTo(
+                modelRef.current ? modelRef.current.rotation : null,
+                { z: 3.2 },
+                { 
+                    z: 9.45, 
+                    scrollTrigger: {
+                        trigger: gridRef.current,
+                        start: "top top",
+                        end: "bottom bottom",
+                        scrub: true,
+                    }
+                }
+            );
+            
         }
 
-        return () => ScrollTrigger.killAll();
-    }, []);
+        return () => {
+            ScrollTrigger.getAll().forEach(t => t.kill()); // Clean up ScrollTriggers properly
+        };
+    }, [modelRef.current]);
 
     return (
         <div ref={gridRef} style={{ height: '400vh', backgroundColor: '#b78fd8' }}>
@@ -102,20 +156,30 @@ const HomePageOpener = () => {
                 id='scrollDownText'
                 style={{
                     opacity: showScrollDown ? 1 : 0,
+                    display: 'flex',
+                    flexDirection: 'column',
+                    justifyContent: 'center',
                 }}
             >
                 <Typography sx={{ fontSize: '2rem' }}>Scroll Down</Typography>
-                <KeyboardDoubleArrowDownIcon style={{ fontSize: '2rem', marginLeft: '70px' }} />
+                <KeyboardDoubleArrowDownIcon style={{ fontSize: '2rem', marginLeft: '65px' }} />
             </div>
-
+        
             <div ref={textSideRef} style={{ height: '100vh', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', textAlign: 'center' }}>
+            
+                <div style={{ width: '100%', height: '150px', display: innerWidth > 1300 ? 'block' : 'none'}}>
+                    <Canvas>
+                        <ambientLight />
+                        <PerspectiveCamera makeDefault position={[0, 0, -5]} />
+                        <Model modelRef={modelRef} visible={showModel} />
+                        <OrbitControls enableZoom={false} enablePan={false} enableRotate={false} />
+                    </Canvas>
+                </div>
+                
                 <h1 ref={titleRef} id='homepage-opener-title'>Welcome to Kehila</h1>
 
                 <p ref={descriptionRef} id='homepage-opener-description'>
-                KEHILA - A web platform designed to create a new centralized hub for all charitable activities.
-                Built on AWS, KEHILA will allow its users to engage with one another using our service, offering a solution for a wide variety of charity related operations.
-                Users can post and discover different charity related offers or requests within their communities locally, or based on the relevant type of charity.
-                With KEHILA, kindness is just a click away, making every act of generosity a step towards a closer, more connected community.
+                Welcome to KEHILA, your central hub for charity and community engagement in Israel. Discover a seamless way to connect, contribute, and create impactful change together.
                 </p>
 
                 <svg ref={heartRef} xmlns="http://www.w3.org/2000/svg" style={{paddingTop: '30px'}} width='100px' height='100px' viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" className="feather feather-heart">

@@ -5,8 +5,12 @@ import useCategories from '../Hooks/useCategories';
 import autoCompleteService from '../Services/autoCompleteService';
 import loginService from '../Services/loginService';
 import { postService } from '../Services/postsService';
+import TransitionAlert from './Alert';
 
 const CreatePost: React.FC = () => {
+
+    const [ successAlert, setSuccessAlert ] = useState<boolean>(false);
+    const [ errorAlert, setErrorAlert ] = useState<boolean>(false);
 
     const [categoryId, setCategoryId] = useState<number>(0);
 
@@ -42,10 +46,11 @@ const CreatePost: React.FC = () => {
 
     const handleInputChange = (event: React.SyntheticEvent<Element, Event>, value: string) => {
         setInputValue(value);
-        console.log(value);
+        console.log(event);
     };
 
     const handleOptionSelected = (event: React.SyntheticEvent<Element, Event>, value: any | null) => {
+        console.log(event);
         if (value) {
             setAddress(value.display_name || '');
             setCoordinates({ lat: value.lat, lng: value.lon });
@@ -82,7 +87,7 @@ const CreatePost: React.FC = () => {
       formData.append('title', titleRef.current?.value || '');
       formData.append('description', descriptionRef.current?.value || '');
       formData.append('lat', coordinates.lat.toString());
-      formData.append('lng', coordinates.lat.toString());
+      formData.append('lng', coordinates.lng.toString());
       formData.append('expiration_time', expirationTimeRef.current?.value || '');
       formData.append('target', targetRef.current?.value || '0');
       formData.append('contact_email', contactEmailRef.current?.value || '');
@@ -97,20 +102,23 @@ const CreatePost: React.FC = () => {
           formData.append('file', file);
       }
 
+      console.log(formData);
+
       const { request } = postService.createPost( formData );
 
       request
         .then(res => {
           console.log(res.data);
           if(res.data.success) {
-            console.log("success");
+            setSuccessAlert(true);
           }
           else {
-            console.log("fail");
+            setErrorAlert(true);
           }
         })
         .catch(err => {
-          console.log(err);
+            console.log(err);
+            setErrorAlert(true);
         });
 
     };
@@ -208,6 +216,13 @@ const CreatePost: React.FC = () => {
                 </Grid>
                 <Grid item xs={12} sx={{pb: 7}}>
                     <Button type="submit" variant="contained" color="primary" fullWidth>Submit</Button>
+                </Grid>
+                <Grid item xs={12} p={0}  sx={{ width: { xs: '90%', sm: '35%' } }}>
+                    <TransitionAlert key="successNewsLetter" textContent={'Thank you for registering a new post!'} open={successAlert} alertType={'success'} setOpen={setSuccessAlert} />
+                </Grid>
+
+                <Grid item xs={12} p={0}  sx={{ width: { xs: '90%', sm: '35%' } }}>
+                    <TransitionAlert key="errorNewsLetter" textContent={'An error occurred when trying to register a new post. Please try again later!'} open={errorAlert} alertType={'error'} setOpen={setErrorAlert} />
                 </Grid>
                 <a href='https://locationiq.com'>Search by LocationIQ.com</a>
             </Grid>

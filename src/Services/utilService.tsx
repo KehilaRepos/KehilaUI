@@ -31,6 +31,34 @@ class utilService {
 
     }
 
+    getNotifications( email: string ) {
+
+        const controller = new AbortController();
+
+        const request = apiClient.get(`/notification?user_email=${email}`, { signal: controller.signal });
+
+        return { request, cancel: () => controller.abort() }
+
+    }
+
+    readAllNotifications( email: string ) {
+
+        const controller = new AbortController();
+        const request = apiClient.post(`/notification/read/user`, {user_email: email}, {signal: controller.signal});
+    
+        return { request, cancel: () => controller.abort() };
+        
+    }
+
+    readNotifications( nid: number ) {
+
+        const controller = new AbortController();
+        const request = apiClient.post(`/notification/read`, {nid}, {signal: controller.signal});
+    
+        return { request, cancel: () => controller.abort() };
+        
+    }
+
 }
 
 export const utilsService =  new utilService;

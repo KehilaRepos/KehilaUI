@@ -44,7 +44,7 @@
 #homepage-opener-description {
     max-width: 50%;
     text-align: justify;
-    font-size: 1.2rem;
+    font-size: 1.4rem;
     line-height: 1.6;
     color: #ffffff;
     text-shadow: 0px 2px 4px rgba(0,0,0,0.1);
@@ -58,3 +58,23 @@
     text-shadow: 0px 4px 6px rgba(0,0,0,0.2);
 }
 
+@media only screen and (max-width: 1200px) {
+
+    .explore-section {
+        flex-direction: column;
+    }
+
+    .explore-inputs {
+        height: auto;
+        padding-bottom: 50px;
+    }
+
+    .explore-cards {
+        display: none;
+    }
+
+    .explore-map {
+        display: flex;
+    }
+    
+}

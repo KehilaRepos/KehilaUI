@@ -3,11 +3,17 @@ import { Container, Typography } from '@mui/material';
 import { MapContainer, TileLayer, Marker, Popup } from 'react-leaflet';
 import usePostByLocation from '../Hooks/usePostByLocation';
 import PostCard from './PostCard';
+import L from 'leaflet';
 
 export const LiveFeed = () => {
 
+  const customIcon = new L.Icon({
+      iconUrl: 'mapmarker.png',
+      iconSize: [40, 40],
+  });
+
     const position: L.LatLngExpression = [ 32.070538, 34.779969 ];
-    const postsByLocation = usePostByLocation( position[0], position[1], 300, 500 );
+    const postsByLocation = usePostByLocation( position[0], position[1], 50, 100 );
 
   return (
     <Container maxWidth={'xl'}>
@@ -51,7 +57,7 @@ export const LiveFeed = () => {
                     const location: L.LatLngExpression = [ post.location.x, post.location.y ];
 
                     return (
-                        <Marker position={location}>
+                        <Marker position={location} icon={customIcon}>
                             <Popup>
                                 {post.title}
                             </Popup>

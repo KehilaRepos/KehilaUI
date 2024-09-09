@@ -1,5 +1,7 @@
-import { Grid, Checkbox, Button, FormControl, InputLabel, Select, MenuItem, FormControlLabel, Typography } from '@mui/material';
+import { Grid, Checkbox, Button, FormControl, InputLabel, Select, MenuItem, FormControlLabel, Typography, SelectChangeEvent } from '@mui/material';
 import useCategories from '../Hooks/useCategories';
+import { useNavigate } from 'react-router-dom';
+import { useState } from 'react';
 
 interface Props {
 
@@ -8,6 +10,16 @@ interface Props {
 const BasicSearch = ({}: Props) => {
 
     const categories = useCategories();
+    const [selectedCategory, setSelectedCategory] = useState('');
+    const navigate = useNavigate();
+
+    const handleCategoryChange = (event: SelectChangeEvent<string>) => {
+        setSelectedCategory(event.target.value);
+    };
+
+    const handleSearch = () => {
+        navigate(`/explore?cid=${selectedCategory}`);
+    };
 
     return (
 
@@ -27,6 +39,8 @@ const BasicSearch = ({}: Props) => {
                         id="category-select"
                         label="Category"
                         placeholder='Please select a category'
+                        value={selectedCategory}
+                        onChange={handleCategoryChange}
                         defaultValue=""
                     >
                         {
@@ -49,7 +63,7 @@ const BasicSearch = ({}: Props) => {
             </Grid>
 
             <Grid item xs={12} md={2} p={0} sx={{ display: 'flex', justifyContent: 'center' }}>
-                <Button variant="contained" type="submit" sx={{ width: '70%' }}>Search</Button>
+                <Button onClick={handleSearch} variant="contained" type="submit" sx={{ width: '70%' }}>Search</Button>
             </Grid>
 
         </Grid>

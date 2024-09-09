@@ -57,7 +57,8 @@ class postsService {
     getPostsByLocation( lat: number, lng: number, radius: number, day: number = 100 ) {
 
         const controller = new AbortController();
-        const request = apiClient.get(`/post?params=lat=${lat}?lng=${lng}?radius=${radius}?day=${day}`, { signal: controller.signal });
+        console.log(`/post?lat=${lat}&lng=${lng}&radius=${radius}&day=${day}`);
+        const request = apiClient.get(`/post?lat=${lat}&lng=${lng}&radius=${radius}&day=${day}`, { signal: controller.signal });
         return { request, cancel: () => controller.abort() }
 
     }
@@ -78,6 +79,24 @@ class postsService {
 
         return { request, cancel: () => controller.abort() }
 
+    }
+
+    incPostViews( pid: number ) {
+
+        const controller = new AbortController();
+        const request = apiClient.post(`/post/views`, {pid}, {signal: controller.signal});
+    
+        return { request, cancel: () => controller.abort() };
+        
+    }
+
+    incPostLikes( pid: number ) {
+
+        const controller = new AbortController();
+        const request = apiClient.post(`/post/likes`, {pid}, {signal: controller.signal});
+    
+        return { request, cancel: () => controller.abort() };
+        
     }
 
 }

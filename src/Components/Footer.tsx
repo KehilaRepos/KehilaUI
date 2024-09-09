@@ -1,5 +1,5 @@
 import { Box, Container, Grid, Typography } from '@mui/material';
-import logoImage from '../assets/images/logo.png';
+import logoImage from '../assets/images/footerlogo.png';
 
 const Footer = () => {
     return (

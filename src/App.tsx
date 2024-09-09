@@ -1,4 +1,5 @@
 
+import AboutUs from './Components/AboutUs';
 import CreatePost from './Components/CreatePost';
 import Explore from './Components/Explore';
 import Footer from './Components/Footer';
@@ -20,6 +21,7 @@ const App = () => {
           <Route path="/create-post" element={ <CreatePost /> } />
           <Route path="/post/:postId" element={<PostPage />} />
           <Route path="/explore" element={<Explore />} />
+          <Route path="/about-us" element={<AboutUs />} />
         </Routes>
         <Footer />
       </ThemeProvider>

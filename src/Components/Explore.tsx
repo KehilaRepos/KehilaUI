@@ -1,23 +1,35 @@
-import { Autocomplete, Box, Container, SelectChangeEvent, TextField, Typography } from '@mui/material'
+// @ts-nocheck
+import { Autocomplete, Box, SelectChangeEvent, TextField, Typography } from '@mui/material'
 import Divider from '@mui/material/Divider';
 import { MapContainer, TileLayer, Marker, Popup } from 'react-leaflet';
-// import L from 'leaflet';
 import 'leaflet/dist/leaflet.css';import React, { useEffect, useState } from 'react'
 import useCategories from '../Hooks/useCategories';
 import useFilteredPosts from '../Hooks/useFilteredPosts';
 import { FormControl, InputLabel, Select, MenuItem } from '@mui/material';
 import PostCard from './PostCard';
 import autoCompleteService from '../Services/autoCompleteService';
+import { useLocation } from 'react-router-dom';
+import L from 'leaflet';
+import iconMarker from '../assets/images/mapmarker.png';
 
 function Explore() {
 
     const categories = useCategories();
     const [selectedCategoryId, setSelectedCategoryId] = useState(0);
     const [address, setAddress] = useState('');
-    const [coordinates, setCoordinates] = useState<{ lat: number, lng: number }>({ lat: 0, lng: 0 });
+    const [coordinates, setCoordinates] = useState<{ lat: number, lng: number }>({ lat: 32.04759003002006, lng: 34.76083803170386 });
     const [radius, setRadius] = useState(10);
     const [options, setOptions] = useState<any[]>([]);
     const [inputValue, setInputValue] = useState('');
+    const location = useLocation();
+
+    useEffect(() => {
+        const queryParams = new URLSearchParams(location.search);
+        const cid = queryParams.get('cid');
+        if (cid) {
+            setSelectedCategoryId(parseInt(cid));
+        }
+    }, []);
 
     const buildQuery = () => {
 
@@ -48,6 +60,11 @@ function Explore() {
       setSelectedCategoryId(parseInt(categoryId));
     }
 
+    const customIcon = new L.Icon({
+        iconUrl: iconMarker,
+        iconSize: [40, 40],
+    });
+
     useEffect(() => {
         if (inputValue) {
             const fetchOptions = async () => {
@@ -67,7 +84,8 @@ function Explore() {
         }
     }, [inputValue]);
 
-    const handleInputChange = (event: React.SyntheticEvent<Element, Event>, value: string, reason: string) => {
+    const handleInputChange = (event: React.SyntheticEvent<Element, Event>, value: string) => {
+        console.log(event);
         setInputValue(value);
     };
 
@@ -76,6 +94,7 @@ function Explore() {
     };
 
     const handleOptionSelected = (event: React.SyntheticEvent<Element, Event>, value: any | null) => {
+        console.log(event);
         if (value) {
             setAddress(value.display_name || '');
             setCoordinates({ lat: value.lat, lng: value.lon });
@@ -87,9 +106,10 @@ function Explore() {
     };
 
   return (
-    <Box sx={{display: 'flex'}} height={"100vh"}>
 
-        <Box flex={1.2} sx={{ backgroundColor: '#fff' }}>
+    <Box sx={{display: 'flex', height: '100vh'}} className={'explore-section'}>
+
+        <Box flex={1.2} sx={{ backgroundColor: '#fff' }} className={'explore-inputs'}>
 
             <Box marginTop={4} sx={{display: 'flex', alignItems: 'center', flexDirection: 'column' }}>
                 <Box>
@@ -102,9 +122,9 @@ function Explore() {
                 </Box>
             </Box>
 
-            <Divider component="li"></Divider>
+            <Divider sx={{marginTop: 5}}></Divider>
 
-            <Box marginTop={3} sx={{ display: 'flex', justifyContent: 'center', flexDirection: 'row', flexShrink: 0, }}>
+            <Box marginTop={3} sx={{ display: 'flex', justifyContent: 'center', flexDirection: 'row', flexShrink: 0 }}>
 
                 <Box flex={0.8}>
                   <FormControl fullWidth>
@@ -134,7 +154,7 @@ function Explore() {
 
             </Box>
 
-            <Divider component="li"></Divider>
+            <Divider sx={{marginTop: 5}}></Divider>
 
             <Box marginTop={3} sx={{ display: 'flex', justifyContent: 'center', flexDirection: 'row', flexShrink: 0, }}>
                 <Autocomplete
@@ -151,7 +171,7 @@ function Explore() {
                         lon: option.lon
                     }))}
                     renderInput={(params) => (
-                        <TextField {...params} label="Filter By Address" />
+                        <TextField {...params} label="Filter By Location" />
                     )}
                 />
                  <TextField
@@ -164,7 +184,7 @@ function Explore() {
 
         </Box>
 
-        <Box flex={1.5} sx={{ boxShadow: '2px 0px 4px rgba(0,0,0, 0.705)', overflow: 'auto', padding: '15px', backgroundColor: '#fafafa'}} >
+        <Box flex={1.5} sx={{ boxShadow: '2px 0px 4px rgba(0,0,0, 0.705)', overflow: 'scroll', padding: '15px', backgroundColor: '#fafafa'}} className={'explore-cards'} >
         {
                 posts?.map((post) => {
                     return (
@@ -178,22 +198,17 @@ function Explore() {
         </Box>
 
         <Box flex={3} sx={{boxShadow: '0px 0px 4px rgba(0,0,0, 0.505)'}}>
-            <MapContainer center={[32.04799896314997, 34.76078025812834]} zoom={9} style={{ height: '100%', width: '100%' }}>
+            <MapContainer center={coordinates} zoom={9} style={{ height: '100%', width: '100%' }} className={'explore-map'}>
                 <TileLayer
                   url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
                   attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
                 />
-                {/* <Marker position={[32.04799896314997, 34.76078025812834]}>
-                    <Popup>
-                      A pretty CSS3 popup. <br /> Easily customizable.
-                    </Popup>
-                </Marker> */}
                 {
                     posts.map(post => {
                         return (
-                            <Marker position={[post.location.x, post.location.y]}>
+                            <Marker icon={customIcon} position={[post.location.x, post.location.y]}>
                                 <Popup>
-                                    <a href=''>{post.title}</a>
+                                    <a href={`/post/${post.pid}`}>{post.title}</a>
                                 </Popup>
                             </Marker>
                         );

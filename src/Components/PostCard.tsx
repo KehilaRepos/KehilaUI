@@ -9,6 +9,7 @@ import FavoriteIcon from '@mui/icons-material/Favorite';
 import ShareIcon from '@mui/icons-material/Share';
 import MoreVertIcon from '@mui/icons-material/MoreVert';
 import { Link } from 'react-router-dom';
+import { postService } from '../Services/postsService';
 
 interface Props {
     post: any
@@ -25,7 +26,7 @@ const RecipeReviewCard = ({post, type = "posts"}: Props) => {
   return (
 
     <Link to={`/post/${post.pid}`} style={{ textDecoration: 'none' }}>
-      <Card sx={{ bgcolor: "#b78fd6", minHeight: '500px' }}>
+      <Card sx={{ bgcolor: "#b9dcff", minHeight: '500px', borderRadius: '42px' }}>
         <CardMedia
           component="img"
           height="250"
@@ -47,7 +48,7 @@ const RecipeReviewCard = ({post, type = "posts"}: Props) => {
           </Typography>
         </CardContent>
         <CardActions disableSpacing>
-          <IconButton aria-label="add to favorites">
+          <IconButton aria-label="add to favorites" onClick={(e: any) => {e.preventDefault(); postService.incPostLikes(post.pid)}}>
             <FavoriteIcon />
           </IconButton>
           <IconButton aria-label="share">

@@ -1,13 +1,33 @@
+// @ts-nocheck
 import { useParams } from 'react-router-dom';
 import { Box, Container, Grid, Typography, Paper, IconButton, Skeleton } from '@mui/material';
 import { Facebook, Instagram, Twitter, Web } from '@mui/icons-material';
-import { MapContainer, TileLayer, Marker } from 'react-leaflet';
+import { MapContainer, TileLayer, Marker, Popup } from 'react-leaflet';
 import usePost from '../Hooks/useSinglePost';
+import iconMarker from '../assets/images/mapmarker.png';
+import { useEffect } from 'react';
+import { postService } from '../Services/postsService';
+import L from 'leaflet';
 
 const PostPage = () => {
     const { postId } = useParams<{ postId?: string }>();
     const postIdNumber = postId ? parseInt(postId, 10) : null;
     const { post } = postIdNumber ? usePost(postIdNumber) : { post: null };
+
+    const customIcon = new L.Icon({
+        iconUrl: iconMarker,
+        iconSize: [40, 40],
+    });
+
+    useEffect(() => {
+
+        const { request } = postService.incPostViews(postIdNumber ?? 0);
+
+        request.then(res => {
+            console.log(res);
+        });
+        
+    }, [postIdNumber]);
 
     return (
         <>
@@ -83,7 +103,7 @@ const PostPage = () => {
                                         url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
                                         attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
                                     />
-                                    <Marker position={[post.location.x, post.location.y]} />
+                                    <Marker position={[post.location.x, post.location.y]} icon={customIcon}></Marker>
                                 </MapContainer>
                             )}
                         </Paper>
@@ -97,9 +117,11 @@ const PostPage = () => {
                                 </>
                             ) : (
                                 <>
-                                    <Typography><strong>Creation Time:</strong> {new Date(post.creation_time).toLocaleString()}</Typography>
+                                    <Typography><strong>Creation Time:</strong> {new Date(post.creation_time as any).toLocaleString()}</Typography>
                                     <Typography><strong>Expiration Time:</strong> {new Date(post.expiration_time).toLocaleString()}</Typography>
                                     <Typography><strong>Target:</strong> {post.target}</Typography>
+                                    <Typography><strong>Likes:</strong> {post.likes}</Typography>
+                                    <Typography><strong>Views:</strong> {post.views}</Typography>
                                 </>
                             )}
                         </Paper>

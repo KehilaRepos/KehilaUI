@@ -11,7 +11,7 @@ import { Container, Typography } from '@mui/material';
 
 export const PopularPosts = () => {
 
-    const posts = usePost();
+    let posts = usePost();
 
   return (
 
@@ -45,7 +45,8 @@ export const PopularPosts = () => {
                   }}>
 
                 {
-                    posts.map((post, index) => {
+
+                    posts.slice(64, 69).map((post, index) => {
                         return (
                             <SwiperSlide key={index}>
                                 <PostCard post={post} />

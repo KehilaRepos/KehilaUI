@@ -23,6 +23,8 @@ interface Post {
   user_email: string;
   creation_time: string | null;
   distance: number | null;
+  likes: number;
+  views: number;
 }
 
 const usePost = (postId: number) => {
